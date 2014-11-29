@@ -7,7 +7,7 @@ package org.demo.beans;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author you
  */
 @Named(value = "authBackingBean")
-@Dependent
+
 public class AuthBackingBean {
 
     private static Logger log = Logger.getLogger(AuthBackingBean.class.getName());
