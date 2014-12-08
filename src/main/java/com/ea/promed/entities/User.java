@@ -8,6 +8,7 @@ package com.ea.promed.entities;
 
 import java.io.Serializable;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +19,7 @@ import javax.persistence.OneToOne;
  *
  * @author kunda_000
  */
-@Entity(name = "users")
+@Entity
 public class User implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -27,6 +28,7 @@ public class User implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
     
+    @Column(unique = true)
     private String username;
     
     private String password;

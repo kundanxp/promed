@@ -6,6 +6,7 @@
 
 package com.ea.promed.facades;
 
+import com.ea.promed.entities.Person;
 import com.ea.promed.entities.User;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -34,8 +35,34 @@ public class UserFacade extends AbstractFacade<User>
     
     public User getUserByUserName(String username)
     {
-//        return (User) em.createQuery("SELECT u FROM User WHERE username = :username").setParameter(1, username).getSingleResult();
-        return em.find(User.class, 1L);
+        return em.createQuery("SELECT u FROM User u WHERE u.username = ?1",User.class).setParameter(1, username).getSingleResult();
+//        return em.find(User.class, 1L);
+    }
+    
+    
+    public User getUserByCode(String code)
+    {
+        try{
+            return em.createQuery("SELECT u FROM User u WHERE u.verification = ?1",User.class).setParameter(1, code).getSingleResult();
+        }catch(Exception e){
+            return null;
+        }
+    }
+    
+    
+    public User getUserByEmail(String email)
+    {
+        try{
+            return em.createQuery("SELECT u FROM User u WHERE u.email = ?1",User.class).setParameter(1, email).getSingleResult();
+        }catch(Exception e){
+            return null;
+        }
+    }
+    
+    
+    public int activateUser(User user)
+    {
+        return em.createNativeQuery("INSERT INTO user_groups VALUES (?1, ?2)").setParameter(1, user.getUser_id()).setParameter(2, 4).executeUpdate();
     }
     
     

@@ -36,7 +36,7 @@
     </security-role>
     <error-page>
         <error-code>404</error-code>
-        <location>/404.html</location>
+        <location>/404.xhtml</location>
     </error-page>
     <error-page>
         <error-code>403</error-code>

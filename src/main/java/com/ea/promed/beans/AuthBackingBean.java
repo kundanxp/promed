@@ -2,32 +2,25 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.demo.beans;
+package com.ea.promed.beans;
 
-import com.ea.promed.beans.SessionBean;
-import com.ea.promed.entities.User;
 import com.ea.promed.facades.UserFacade;
 import java.io.IOException;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *
  * @author you
  */
 
-@Named(value = "authBackingBean")
+@ManagedBean
 @RequestScoped
-public class AuthBackingBean {
+public class AuthBackingBean extends AbstractBean {
 
     private static final Logger log = Logger.getLogger(AuthBackingBean.class.getName());
     
@@ -35,36 +28,21 @@ public class AuthBackingBean {
     private UserFacade userFacade;
     
     
-    
-    private FacesContext context;
-    private HttpServletRequest request;
-    private ExternalContext ec;
-    Map<String, Object> sessionMap;
-    
 
     public AuthBackingBean() {
         
-        context = FacesContext.getCurrentInstance();
-        request = (HttpServletRequest) context.getExternalContext().getRequest();
-        
-        ec = context.getExternalContext();
-        
-        sessionMap = context.getExternalContext().getSessionMap();
-
     }
-    
-    
     
 
     public void logout() throws IOException {
-        String result = "/dashboard";
+        String result = "/dashboard/?logout";
         
         try {
             request.logout();
             
         } catch (ServletException e) {
             log.log(Level.SEVERE, "Failed to logout user!", e);
-            result = "/dashboard";
+            //result = "/dashboard";
         }
             
         ec.redirect(ec.getRequestContextPath() + result);
