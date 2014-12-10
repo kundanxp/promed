@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `v_user_role` (
 --
 DROP TABLE IF EXISTS `v_user_role`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_user_role` AS select `u`.`USERNAME` AS `username`,`u`.`PASSWORD` AS `password`,`g`.`group_name` AS `group_name` from ((`user_groups` `ug` join `users` `u` on((`u`.`USER_ID` = `ug`.`user_id`))) join `groups` `g` on((`g`.`group_id` = `ug`.`group_id`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`mysql.cfrk67jbhkou.us-east-1.rds.amazonaws.com` SQL SECURITY DEFINER VIEW `v_user_role` AS select `u`.`USERNAME` AS `username`,`u`.`PASSWORD` AS `password`,`g`.`group_name` AS `group_name` from ((`user_groups` `ug` join `users` `u` on((`u`.`USER_ID` = `ug`.`user_id`))) join `groups` `g` on((`g`.`group_id` = `ug`.`group_id`)));
 
 --
 -- Constraints for dumped tables
