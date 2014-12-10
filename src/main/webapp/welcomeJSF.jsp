@@ -23,6 +23,18 @@
                 </h:form>
 
                 <h:form>
+                    <h:commandLink action="#{nurse.listSetup}" value="Show All Nurse Items"/>
+                </h:form>
+
+                <h:form>
+                    <h:commandLink action="#{nurse.listSetup}" value="Show All Nurse Items"/>
+                </h:form>
+
+                <h:form>
+                    <h:commandLink action="#{nurse.listSetup}" value="Show All Nurse Items"/>
+                </h:form>
+
+                <h:form>
                     <h:commandLink action="#{doctor.listSetup}" value="Show All Doctor Items"/>
                 </h:form>
 

@@ -58,13 +58,8 @@
     <managed-bean>
         <managed-bean-name>nurse</managed-bean-name>
         <managed-bean-class>com.ea.promed.beans.NurseController</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>nurseJpa</managed-bean-name>
-        <managed-bean-class>com.ea.promed.factories.NurseFacade</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+    
+        <managed-bean-scope>session</managed-bean-scope></managed-bean>
     <converter>
         <converter-for-class>com.ea.promed.entities.Nurse</converter-for-class>
         <converter-class>com.ea.promed.beans.NurseConverter</converter-class>
@@ -97,4 +92,12 @@
             <to-view-id>/dashboard/nurse/Detail.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <application>
+        <el-resolver>com.ea.promed.facades.util.JsfCrudELResolver</el-resolver>
+    </application>
+    <managed-bean>
+        <managed-bean-name>nurseJpa</managed-bean-name>
+        <managed-bean-class>com.ea.promed.facades.NurseFacade</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

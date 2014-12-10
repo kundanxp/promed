@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ea.promed.factories;
+package com.ea.promed.facades;
 
 import com.ea.promed.entities.Nurse;
 import javax.ejb.Stateless;

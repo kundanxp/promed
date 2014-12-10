@@ -13,7 +13,7 @@ import javax.transaction.UserTransaction;
 import com.ea.promed.beans.util.JsfUtil;
 import com.ea.promed.beans.util.PagingInfo;
 import com.ea.promed.entities.Nurse;
-import com.ea.promed.factories.NurseFacade;
+import com.ea.promed.facades.NurseFacade;
 import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
