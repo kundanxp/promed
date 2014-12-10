@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewNurseTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewNurseLabel_licenseNumber}"/>
+                    <h:outputText value="#{nurseController.selected.licenseNumber}" title="#{bundle.ViewNurseTitle_licenseNumber}"/>
+                    <h:outputText value="#{bundle.ViewNurseLabel_id}"/>
+                    <h:outputText value="#{nurseController.selected.id}" title="#{bundle.ViewNurseTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewNurseLabel_firstName}"/>
+                    <h:outputText value="#{nurseController.selected.firstName}" title="#{bundle.ViewNurseTitle_firstName}"/>
+                    <h:outputText value="#{bundle.ViewNurseLabel_lastName}"/>
+                    <h:outputText value="#{nurseController.selected.lastName}" title="#{bundle.ViewNurseTitle_lastName}"/>
+                    <h:outputText value="#{bundle.ViewNurseLabel_phone}"/>
+                    <h:outputText value="#{nurseController.selected.phone}" title="#{bundle.ViewNurseTitle_phone}"/>
+                    <h:outputText value="#{bundle.ViewNurseLabel_addresses}"/>
+                    <h:outputText value="#{nurseController.selected.addresses}" title="#{bundle.ViewNurseTitle_addresses}"/>
+                    <h:outputText value="#{bundle.ViewNurseLabel_mobile}"/>
+                    <h:outputText value="#{nurseController.selected.mobile}" title="#{bundle.ViewNurseTitle_mobile}"/>
+                    <h:outputText value="#{bundle.ViewNurseLabel_ssn}"/>
+                    <h:outputText value="#{nurseController.selected.ssn}" title="#{bundle.ViewNurseTitle_ssn}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{nurseController.destroyAndView}" value="#{bundle.ViewNurseDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewNurseEditLink}"/>
+                <br />
+                <h:commandLink action="#{nurseController.prepareCreate}" value="#{bundle.ViewNurseCreateLink}" />
+                <br />
+                <h:commandLink action="#{nurseController.prepareList}" value="#{bundle.ViewNurseShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewNurseIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
