@@ -29,14 +29,13 @@ public class Person implements Serializable
     private String lastName;
     
     private String phone;
-    
-    private String addresses;
-    
     private String mobile;
     
-    private String ssn;
+    private String street;
+    private String city;
+    private String stateName;
+    private String zipCode;
     
-
     public Long getId()
     {
         return id;
@@ -75,13 +74,7 @@ public class Person implements Serializable
         this.phone = phone;
     }
 
-    public String getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(String addresses) {
-        this.addresses = addresses;
-    }
+    
 
     public String getMobile() {
         return mobile;
@@ -91,14 +84,39 @@ public class Person implements Serializable
         this.mobile = mobile;
     }
 
-    public String getSsn() {
-        return ssn;
+    public String getStreet() {
+        return street;
     }
 
-    public void setSsn(String ssn) {
-        this.ssn = ssn;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStateName() {
+        return stateName;
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    
     
 
     

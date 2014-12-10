@@ -489,3 +489,16 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 	.navbar-form input { width: 235px; }
 	
 }
+
+span.error {
+    display: block;
+    color: red;
+}
+.errors {
+    display: block;
+    border: 1px solid red;
+    background: #ffc;
+    margin-left: 0;
+    padding: 7px;
+    list-style-type: none;
+}

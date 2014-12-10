@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">    
 <html xmlns="http://www.w3.org/1999/xhtml"
-                                                                                                                                   xmlns:h="http://xmlns.jcp.org/jsf/html"
-                                                                                                                                   xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
         <title>Register New User</title>
         <meta name="description" content="Your description"/>
@@ -14,8 +15,8 @@
 
     </head>
     <h:body class="subpage">
-        
-        
+
+
 
         <div id="main">
 
@@ -44,24 +45,84 @@
                     <div class="row">
                         <div class="span8">
 
-
+                            <h3>User Registration :</h3>
 
                             <h:form>
+                                
+                                <h:messages class="errors"/>
 
-                                <h:outputLabel value="User Email:"/>
-                                <h:inputText required="required" class="input-xlarge" rendered="true" value="#{userBean.user.email}"/><br/>
-                                <h:outputLabel value="User Name:"/>
-                                <h:inputText required="required" rendered="true" value="#{userBean.user.username}"/><br/>
-                                <h:outputLabel value="Password:"/>
-                                <h:inputSecret required="required" rendered="true" value="#{userBean.user.password}"/><br/>
-
-                                <h:outputLabel value="Person First Name:"/>
-                                <h:inputText required="required" rendered="true" value="#{userBean.user.person.firstName}"/><br/>
-                                <h:outputLabel value="Person Last Name:"/>
-                                <h:inputText required="required" rendered="true" value="#{userBean.user.person.lastName}"/><br/>
-
-                                <h:commandButton class="btn btn-primary" action="#{userBean.createUser()}" value="Submit"/>
-
+                                <p>
+                                    <h:outputLabel value="User Email:"/>
+                                    <h:inputText id="email" required="true" validatorMessage="Invalid email address." label="Email" class="input-xxlarge" rendered="true" value="#{userBean.user.email}">
+                                        <f:validateRegex pattern="^([\w\-\.]+)@((\[([0-9]{1,3}\.){3}[0-9]{1,3}\])|(([\w\-]+\.)+)([a-zA-Z]{2,4}))$"/>
+                                    </h:inputText> 
+                                    <h:message class="error" for="email"/>
+                                </p>
+                                <hr/>
+                                <h3>Login Credentials:</h3>
+                                <p>
+                                    <h:outputLabel value="User Name:"/>
+                                    <h:inputText id="username" required="true" validatorMessage="User Name Not Valid" class="input-xxlarge" label="User Name:" rendered="true" value="#{userBean.user.username}">
+                                        <f:validateLength minimum="6" maximum="10" />
+                                    </h:inputText>
+                                    <h:message class="error" for="username"/>
+                                </p>
+                                <p>
+                                    <h:outputLabel value="Password:"/>
+                                    <h:inputSecret class="input-xxlarge" required="true" validatorMessage="Password not strong enough." id="password" label="Password:" value="#{userBean.user.password}">
+                                        <f:validateLength minimum="6" maximum="10" />
+                                    </h:inputSecret>
+                                    <h:message class="error" for="password"/>
+                                </p>
+                                <hr/>
+                                <h3>Personal Info</h3>
+                                <p>
+                                    <h:outputLabel value="First Name:"/>
+                                    <h:inputText class="input-xxlarge" label="First Name" id="firstName" required="true" rendered="true" value="#{userBean.user.person.firstName}"/><br/>
+                                    <h:message class="error" for="firstName"/>
+                                </p>
+                                <p>
+                                    <h:outputLabel value="Last Name:"/>
+                                    <h:inputText class="input-xxlarge" label="Last Name" id="lastName" required="true" rendered="true" value="#{userBean.user.person.lastName}"/><br/>
+                                    <h:message class="error" for="lastName"/>
+                                </p>
+                                <hr/>
+                                <p>
+                                    <h:outputLabel value="Phone:"/>
+                                    <h:inputText class="input-xxlarge" label="Phone" id="phone" value="#{userBean.user.person.phone}"/>
+                                    <h:message class="error" for="phone"/>
+                                </p>
+                                <p>
+                                    <h:outputLabel value="Mobile:"/>
+                                    <h:inputText class="input-xxlarge" label="Mobile" id="mobile" value="#{userBean.user.person.mobile}"/>
+                                    <h:message class="error" for="mobile"/>
+                                </p>
+                                <hr/>
+                                <h3>Address:</h3>
+                                <p>
+                                    <h:outputLabel value="Street:"/>
+                                    <h:inputText class="input-xxlarge" label="Street" id="street" value="#{userBean.user.person.street}"/>
+                                    <h:message class="error" for="street"/>
+                                </p>
+                                <p>
+                                    <h:outputLabel value="City:"/>
+                                    <h:inputText class="input-xxlarge" label="City" id="city" value="#{userBean.user.person.city}"/>
+                                    <h:message class="error" for="city"/>
+                                </p>
+                                <p>
+                                    <h:outputLabel value="State:"/>
+                                    <h:inputText class="input-xxlarge" label="State" id="state" value="#{userBean.user.person.stateName}"/>
+                                    <h:message class="error" for="state"/>
+                                </p>
+                                <p>
+                                    <h:outputLabel value="Zip:"/>
+                                    <h:inputText class="input-xxlarge" label="Zip" id="zip" value="#{userBean.user.person.zipCode}"/>
+                                    <h:message class="error" for="zip"/>
+                                </p>
+                                
+                                <p>
+                                    <h:commandButton class="btn btn-primary" action="#{userBean.createUser()}" value="Submit"/>
+                                </p>
                             </h:form>    
 
 

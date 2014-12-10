@@ -79,7 +79,7 @@ public class UserBean extends AbstractBean
         
         emailBean.sendEMail();
         
-        return "register";
+        return "dashboard/index?faces-redirect=true";
     }
     
     

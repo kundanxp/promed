@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -31,6 +32,7 @@ public class User implements Serializable
     @Column(unique = true)
     private String username;
     
+    @NotNull
     private String password;
     
     private String email;
