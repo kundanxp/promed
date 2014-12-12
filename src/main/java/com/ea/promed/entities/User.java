@@ -39,7 +39,7 @@ public class User implements Serializable
     
     private String verification;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Person person;
     
 

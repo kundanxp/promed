@@ -6,6 +6,8 @@
 
 package com.ea.promed.beans;
 
+import com.ea.promed.entities.Client;
+import com.ea.promed.entities.Patient;
 import com.ea.promed.entities.Person;
 import com.ea.promed.entities.User;
 import com.google.common.base.Charsets;
@@ -41,7 +43,7 @@ public class UserBean extends AbstractBean
     public UserBean()
     {
         user = new User();
-        user.setPerson(new Person());
+        user.setPerson(new Client());
     }
 
     public User getUser()
@@ -90,9 +92,9 @@ public class UserBean extends AbstractBean
         if(checkUser != null)
         {
             checkUser.setVerification("");
-            userFacade.edit(checkUser);
-            userFacade.activateUser(checkUser);
             
+            userFacade.activateUser(checkUser);
+            userFacade.edit(checkUser);
             context.addMessage("message", new FacesMessage("Email has been verified. Please login"));
             
             ec.redirect("/dashboard/");
@@ -101,7 +103,7 @@ public class UserBean extends AbstractBean
             FacesContext.getCurrentInstance().addMessage("message", new FacesMessage("Verification Code Error"));
         }
         
-        return "verification";
+        return "/verification";
     }
     
 
@@ -144,8 +146,6 @@ public class UserBean extends AbstractBean
     
     public String resetPassword(String code) throws IOException
     {
-        System.out.println(user.getPassword());
-        System.out.println(verifyPassword);
         
         if(user.getPassword().equals(verifyPassword))
         {
