@@ -4,6 +4,11 @@
  */
 package com.ea.promed.beans;
 
+import com.ea.promed.entities.Admins;
+import com.ea.promed.entities.Client;
+import com.ea.promed.entities.Doctor;
+import com.ea.promed.entities.Nurse;
+import com.ea.promed.entities.User;
 import com.ea.promed.facades.UserFacade;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -52,29 +57,31 @@ public class AuthBackingBean extends AbstractBean {
     public void userRoleRedirect() throws IOException{
         
         String username = request.getUserPrincipal().getName();
+        User cUser = userFacade.getUserByUserName(username);
+        sessionMap.put("cUser", cUser);
         
         if(request.isUserInRole("ADMIN"))
         {
             sessionMap.put("role", "ADMIN");
-            sessionMap.put("cUser", userFacade.getUserByUserName(username));
+            sessionMap.put("cAdmin", (Admins) cUser.getPerson());
             ec.redirect(ec.getRequestContextPath() + "/dashboard/admin/");
             
         }else if(request.isUserInRole("NURSE")){
             
             sessionMap.put("role", "NURSE");
-            sessionMap.put("cUser", userFacade.getUserByUserName(username));
+            sessionMap.put("cNurse", (Nurse) cUser.getPerson());
             ec.redirect(ec.getRequestContextPath() + "/dashboard/nurse/");
             
         }else if(request.isUserInRole("DOCTOR")){
             
             sessionMap.put("role", "DOCTOR");
-            sessionMap.put("cUser", userFacade.getUserByUserName(username));
+            sessionMap.put("cDoctor", (Doctor) cUser.getPerson());
             ec.redirect(ec.getRequestContextPath() + "/dashboard/doctor/");
             
         }else if(request.isUserInRole("USER")){
             
             sessionMap.put("role", "USER");
-            sessionMap.put("cUser", userFacade.getUserByUserName(username));
+            sessionMap.put("cClient", (Client) cUser.getPerson());
             ec.redirect(ec.getRequestContextPath() + "/dashboard/user/");
             
         }
