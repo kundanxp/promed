@@ -8,7 +8,6 @@ package com.ea.promed.beans;
 
 import com.ea.promed.entities.Client;
 import com.ea.promed.entities.Patient;
-import com.ea.promed.entities.Person;
 import com.ea.promed.entities.User;
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
@@ -22,6 +21,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseEvent;
+import javax.faces.event.PhaseId;
 import javax.mail.MessagingException;
 
 
@@ -40,10 +41,11 @@ public class UserBean extends AbstractBean
     String verifyPassword;
     
     
+    
     public UserBean()
     {
         user = new User();
-        user.setPerson(new Client());
+        
     }
 
     public User getUser()
@@ -66,23 +68,7 @@ public class UserBean extends AbstractBean
     
     
     
-    public String createUser() throws MessagingException, UnsupportedEncodingException
-    {
-        
-        String hash = Hashing.sha256().hashString(user.getPassword(), Charsets.UTF_8).toString();
-        
-        user.setVerification(hash);
-        user.setPassword(hash);
-        userFacade.create(user);
-        
-        emailBean.setToemail(user.getEmail());
-        emailBean.setSubject("Email Verification from Pro Medical Services");
-        emailBean.setMessagetext(user.getPerson().getFirstName(),hash);
-        
-        emailBean.sendEMail();
-        
-        return "dashboard/index?faces-redirect=true";
-    }
+    
     
     
     public String verifyUser(String code) throws IOException
@@ -93,14 +79,15 @@ public class UserBean extends AbstractBean
         {
             checkUser.setVerification("");
             
-            userFacade.activateUser(checkUser);
+            userFacade.activateUser(checkUser,4);
             userFacade.edit(checkUser);
-            context.addMessage("message", new FacesMessage("Email has been verified. Please login"));
+            
+            sessionMap.put("message", "User verified Successfully. Please login with your credentials.");
             
             ec.redirect("/dashboard/");
             
         }else{
-            FacesContext.getCurrentInstance().addMessage("message", new FacesMessage("Verification Code Error"));
+            sessionMap.put("message", "Verification Code Error.");
         }
         
         return "/verification";
@@ -121,7 +108,7 @@ public class UserBean extends AbstractBean
 
             emailBean.setToemail(user.getEmail());
             emailBean.setSubject("Password Reset Request : Pro Medical Services");
-            emailBean.setMessagetext(user.getPerson().getFirstName(),"Please click below link to reset password.",code);
+            emailBean.setMessagetext("Dear User,","Please click below link to reset password.",code);
 
             emailBean.sendEMail();
             
@@ -137,24 +124,58 @@ public class UserBean extends AbstractBean
     
     public boolean checkVerification(String code)
     {
-        user = userFacade.getUserByCode(code);
+        User cUser = userFacade.getUserByCode(code);
         
-        return user != null;
-        
-    }
-    
-    
-    public String resetPassword(String code) throws IOException
-    {
-        
-        if(user.getPassword().equals(verifyPassword))
+        if(cUser != null)
         {
-            return "/dashboard/index";
+            sessionMap.put("cUser", cUser);
+            return true;
         }else{
-            return "/reset-password?faces-redirect=true&includeViewParams=true";
+            sessionMap.put("cUser", null);
+            return false;
         }
         
     }
     
+    
+    public String resetPassword() throws IOException
+    {
+        
+        User cUser = (User) sessionMap.get("cUser");
+        String code = cUser.getVerification();
+        
+        if(user.getPassword().equals(getVerifyPassword()))
+        {
+            
+            String hash = Hashing.sha256().hashString(user.getPassword(), Charsets.UTF_8).toString();
+
+            cUser.setPassword(hash);
+            cUser.setVerification("");
+
+            userFacade.edit(cUser);
+
+            sessionMap.put("message", "Password Updated successfully. Please login with your new username and password.");
+
+            System.out.println("password changed");
+            
+            return "/dashboard/index?faces-redirect=true";
+            
+        }else{
+            sessionMap.put("message", "Password Not Matched.");
+        }
+        
+        return "reset-password?faces-redirect=true&code="+code;
+        
+    }
+    
+    
+    
+    
+    public void clearMessage(PhaseEvent event) {
+    if (event.getPhaseId() == PhaseId.RENDER_RESPONSE) {
+        FacesContext.getCurrentInstance().getExternalContext()
+            .getSessionMap().remove("message");
+    }
+}
     
 }

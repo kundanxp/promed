@@ -6,9 +6,11 @@
 package com.ea.promed.facades;
 
 import com.ea.promed.entities.Patient;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 /**
  *
@@ -16,6 +18,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class PatientFacade extends AbstractFacade<Patient> {
+    
     @PersistenceContext(unitName = "promedPU")
     private EntityManager em;
 
@@ -26,6 +29,11 @@ public class PatientFacade extends AbstractFacade<Patient> {
 
     public PatientFacade() {
         super(Patient.class);
+    }
+    
+    public List<Patient> listAllPatients()
+    {
+        return getEntityManager().createQuery("SELECT p FROM Patient p").getResultList();
     }
     
 }

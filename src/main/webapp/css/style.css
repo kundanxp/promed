@@ -494,6 +494,7 @@ span.error {
     display: block;
     color: red;
 }
+
 .errors {
     display: block;
     border: 1px solid red;
@@ -501,4 +502,8 @@ span.error {
     margin-left: 0;
     padding: 7px;
     list-style-type: none;
+}
+
+.alert {
+    text-align: center;
 }

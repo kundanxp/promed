@@ -20,7 +20,7 @@ import javax.persistence.OneToOne;
 public class Services implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long serviceId;
     
     private String serviceName;

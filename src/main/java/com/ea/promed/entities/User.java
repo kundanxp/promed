@@ -27,7 +27,7 @@ public class User implements Serializable
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long id;
     
     @Column(unique = true)
     private String username;
@@ -39,19 +39,25 @@ public class User implements Serializable
     
     private String verification;
     
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private Person person;
+    @OneToOne(mappedBy = "user")
+    private Doctor doctor;
+    
+    @OneToOne(mappedBy = "user")
+    private Nurse nurse;
+    
+    @OneToOne(mappedBy = "user")
+    private Client client;
+    
     
 
-    public Long getUser_id()
-    {
-        return user_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setUser_id(Long user_id)
-    {
-        this.user_id = user_id;
+    public void setId(Long id) {
+        this.id = id;
     }
+    
 
     public String getUsername()
     {
@@ -93,14 +99,31 @@ public class User implements Serializable
         this.verification = verification;
     }
 
-    public Person getPerson() {
-        return person;
+    public Doctor getDoctor() {
+        return doctor;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
+    public Nurse getNurse() {
+        return nurse;
+    }
+
+    public void setNurse(Nurse nurse) {
+        this.nurse = nurse;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    
     
     
 }

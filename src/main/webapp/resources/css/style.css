@@ -479,3 +479,33 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 	.navbar-form input { width: 235px; }
 	
 }
+
+
+.btn {
+    text-decoration: none;
+    position: relative;
+    z-index: 1000;
+}
+
+span.error {
+    display: block;
+    color: red;
+}
+.errors {
+    display: block;
+    border: 1px solid red;
+    background: #ffc;
+    margin-left: 0;
+    padding: 7px;
+    list-style-type: none;
+}
+
+.message {
+    width: 40%;
+    margin: auto;
+    padding: 10px;
+    background: #fbb450;
+    border: 1px solid #002a80;
+    display: block;
+    text-align: center;
+}

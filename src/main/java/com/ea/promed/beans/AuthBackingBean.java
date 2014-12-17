@@ -4,11 +4,13 @@
  */
 package com.ea.promed.beans;
 
-import com.ea.promed.entities.Admins;
 import com.ea.promed.entities.Client;
 import com.ea.promed.entities.Doctor;
 import com.ea.promed.entities.Nurse;
 import com.ea.promed.entities.User;
+import com.ea.promed.facades.ClientFacade;
+import com.ea.promed.facades.DoctorFacade;
+import com.ea.promed.facades.NurseFacade;
 import com.ea.promed.facades.UserFacade;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -32,6 +34,14 @@ public class AuthBackingBean extends AbstractBean {
     @EJB
     private UserFacade userFacade;
     
+    @EJB
+    private DoctorFacade doctorFacade;
+    
+    @EJB
+    private NurseFacade nurseFacade;
+    
+    @EJB
+    private ClientFacade clientFacade;
     
 
     public AuthBackingBean() {
@@ -63,25 +73,24 @@ public class AuthBackingBean extends AbstractBean {
         if(request.isUserInRole("ADMIN"))
         {
             sessionMap.put("role", "ADMIN");
-            sessionMap.put("cAdmin", (Admins) cUser.getPerson());
             ec.redirect(ec.getRequestContextPath() + "/dashboard/admin/");
-            
-        }else if(request.isUserInRole("NURSE")){
-            
-            sessionMap.put("role", "NURSE");
-            sessionMap.put("cNurse", (Nurse) cUser.getPerson());
-            ec.redirect(ec.getRequestContextPath() + "/dashboard/nurse/");
             
         }else if(request.isUserInRole("DOCTOR")){
             
             sessionMap.put("role", "DOCTOR");
-            sessionMap.put("cDoctor", (Doctor) cUser.getPerson());
+            sessionMap.put("cDoctor", doctorFacade.getDoctorByUser(cUser));
             ec.redirect(ec.getRequestContextPath() + "/dashboard/doctor/");
+            
+        }else if(request.isUserInRole("NURSE")){
+            
+            sessionMap.put("role", "NURSE");
+            sessionMap.put("cNurse", nurseFacade.getNurseByUser(cUser));
+            ec.redirect(ec.getRequestContextPath() + "/dashboard/nurse/");
             
         }else if(request.isUserInRole("USER")){
             
             sessionMap.put("role", "USER");
-            sessionMap.put("cClient", (Client) cUser.getPerson());
+            sessionMap.put("cClient", clientFacade.getClientByUser(cUser));
             ec.redirect(ec.getRequestContextPath() + "/dashboard/user/");
             
         }

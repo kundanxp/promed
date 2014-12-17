@@ -6,36 +6,133 @@
 package com.ea.promed.entities;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author kunda_000
  */
+
 @Entity
-public class Nurse extends Person implements Serializable {
+public class Nurse implements Serializable {
     private static final long serialVersionUID = 1L;
     
     
-    private Long nurseId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     
-    private String licenseId;
+    private String firstName;
+    private String lastName;
+    
+    private String phone;
+    private String mobile;
+    
+    private String street;
+    private String city;
+    private String stateName;
+    private String zipCode;
+    
+    
+    @OneToOne
+    private Department department;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
 
-    public Long getNurseId() {
-        return nurseId;
+    public Long getId() {
+        return id;
     }
 
-    public void setNurseId(Long nurseId) {
-        this.nurseId = nurseId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getLicenseId() {
-        return licenseId;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setLicenseId(String licenseId) {
-        this.licenseId = licenseId;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStateName() {
+        return stateName;
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     
     
     

@@ -6,11 +6,14 @@
 package com.ea.promed.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -18,21 +21,26 @@ import javax.persistence.ManyToOne;
  */
 
 @Entity
-public class Patient extends Person implements Serializable {
+public class Patient implements Serializable {
     private static final long serialVersionUID = 1L;
     
-    private Long patientNo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     
-    @ManyToOne
+    private String firstName;
+    
+    private String lastName;
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateOfBirth;
+    
+    
+    
+    @OneToOne
     private Client client;
 
-    public Long getPatientNo() {
-        return patientNo;
-    }
-
-    public void setPatientNo(Long patientNo) {
-        this.patientNo = patientNo;
-    }
+    private String relationToClient;
 
     public Client getClient() {
         return client;
@@ -40,6 +48,46 @@ public class Patient extends Person implements Serializable {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getRelationToClient() {
+        return relationToClient;
+    }
+
+    public void setRelationToClient(String relationToClient) {
+        this.relationToClient = relationToClient;
     }
 
     

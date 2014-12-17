@@ -5,16 +5,17 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-
     <h:head>
-        <f:facet name="first">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
 
             <title>Professional Medical Services</title>
+        
+        <f:facet name="first">
             
             <base href="#{facesContext.externalContext.requestContextPath}/" />
+            
             
         </f:facet>
 
@@ -22,12 +23,21 @@
             <h:outputStylesheet name="css/bootstrap.css"/>
             <h:outputStylesheet name="css/bootstrap-responsive.css"/>
             <h:outputStylesheet name="css/style.css"/>
+            <h:outputStylesheet name="css/jquery-ui-1.8.13.custom.css"/>
+        </f:facet>
+<h:outputScript library="js" name="jquery.js"/>
+            <h:outputScript library="js" name="jquery-ui-1.8.13.custom.min.js"/>
+            
+            
+        <f:facet name="last">
             
         </f:facet>
-
-        <f:facet name="last">
-
-        </f:facet>
+            
+            <script type="text/javascript">
+            $(document).ready(function() {
+                   $(".datepicker").datepicker({ changeMonth: true, changeYear: true });
+            });
+            </script>
 
     </h:head>
 

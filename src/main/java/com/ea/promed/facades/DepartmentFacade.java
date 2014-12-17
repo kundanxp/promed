@@ -5,7 +5,8 @@
  */
 package com.ea.promed.facades;
 
-import com.ea.promed.entities.Admins;
+import com.ea.promed.entities.Department;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +16,7 @@ import javax.persistence.PersistenceContext;
  * @author kunda_000
  */
 @Stateless
-public class AdminsFacade extends AbstractFacade<Admins> {
+public class DepartmentFacade extends AbstractFacade<Department> {
     @PersistenceContext(unitName = "promedPU")
     private EntityManager em;
 
@@ -24,8 +25,14 @@ public class AdminsFacade extends AbstractFacade<Admins> {
         return em;
     }
 
-    public AdminsFacade() {
-        super(Admins.class);
+    public DepartmentFacade() {
+        super(Department.class);
     }
+    
+    public List<Department> allDepartments()
+    {
+        return findAll();
+    }
+    
     
 }

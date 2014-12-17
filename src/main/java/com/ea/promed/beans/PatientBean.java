@@ -7,19 +7,22 @@ package com.ea.promed.beans;
 
 import com.ea.promed.entities.Client;
 import com.ea.promed.entities.Patient;
-import com.ea.promed.entities.User;
 import com.ea.promed.facades.ClientFacade;
 import com.ea.promed.facades.PatientFacade;
+import com.ea.promed.facades.UserFacade;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author kunda_000
  */
+
 @ManagedBean
 @RequestScoped
 public class PatientBean extends AbstractBean {
@@ -29,46 +32,73 @@ public class PatientBean extends AbstractBean {
     
     @EJB
     ClientFacade clientFacade;
+    
+    @EJB
+    UserFacade userFacade;
 
     private Patient patient;
     
     public PatientBean() {
-        patient = new Patient();
+        
     }
-
-    public Patient getPatient() {
+    
+    public Patient getSelected() {
+        if (patient == null) {
+            patient = new Patient();
+        }
         return patient;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
     
     
-    public String createPatient()
+    public void createPatient() throws IOException
     {
-        if(patient != null)
-        {
+        
             Client client = (Client) sessionMap.get("cClient");
             
             patient.setClient(client);
             
-            patientFacade.create(patient);
             
-        }
+            if(patient.getId() != null)
+            {
+                if(sessionMap.get("editID") == patient.getId())
+                    patientFacade.edit(patient);
+                else
+                    ec.redirect("/403.xhtml");
+            }else{
+                patientFacade.create(patient);
+            }
             
+            
+//        }catch(Exception e){
+//            System.out.println(e.getMessage());
+//        }
+            
+        sessionMap.put("message", "Patient updated successfully.");
         
-        sessionMap.put("message", "Patient added successfully.");
-        
-        return "patients";
+        ec.redirect("patients.xhtml");
     }
     
-    public List<Patient> listPatientsByClient()
+    
+    
+    
+    
+    public void editPatient(String patientid) throws IOException
     {
-        Client client = (Client) sessionMap.get("cClient");
-        
-        return client.getPatients();
+        Client cClient = (Client) sessionMap.get("cClient");
+        Long pid = Long.parseLong(patientid);
+        patient = patientFacade.find(pid);
+        if( !Objects.equals(patient.getClient().getId(), cClient.getId()))
+        {
+            ec.redirect("/403.xhtml");
+        }else{
+            sessionMap.put("editID", pid);
+        }
     }
+    
+    
+    
+    
     
     
     

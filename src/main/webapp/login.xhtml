@@ -104,9 +104,10 @@
                         <div class="span4"></div>
                         <div class="span4">
                             
-                            <h:outputText id="message"/>
-                            <h:message for="message" />  
                             
+                            <c:if test="#{message != null}">
+                                <p class="alert alert-success">#{message}</p>
+                            </c:if>
                             
                             <c:if test="#{param['logout'] == ''}">
                                 <p class="notification_error pull-center">Good Bye ! Log out successful.</p>
