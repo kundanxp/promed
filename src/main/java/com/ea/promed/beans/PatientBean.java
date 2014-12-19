@@ -98,7 +98,10 @@ public class PatientBean extends AbstractBean {
     
     
     
-    
+    public List<Patient> listAllPatients()
+    {
+        return patientFacade.findAll();
+    }
     
     
     

@@ -16,9 +16,8 @@
                     <div class="row">
                         <div class="span12">
                             
-                            <a class="btn btn-primary pull-right" href="doctor.xhtml">New Doctor</a>
                             
-                            <h2>Doctors</h2>
+                            <h2>Appointments</h2>
                             
                             <c:if test="#{message != null}">
                                 <p class="alert alert-success">#{message}</p>
@@ -26,20 +25,38 @@
 
                             <h:form>
                                 
-                                <h:dataTable class="table-bordered table table-striped" value="#{doctorBean.listAllDoctors()}" var="doctor">
+                                <h:dataTable class="table-bordered table table-striped" value="#{nurseBean.listNurseAppointments()}" var="appointment">
                                 
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="First Name"/>
+                                            <h:outputText value="Patient Name"/>
                                         </f:facet>
-                                        <h:outputText value="#{doctor.firstName}"/>
+                                        <h:outputText value="#{appointment.patient.fullName}"/>
+                                    </h:column>
+                                    
+                                    
+                                    
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Problems"/>
+                                        </f:facet>
+                                        <h:outputText value="#{appointment.problems}"/>
+                                    </h:column>
+                                    
+                                    
+                                    
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Date"/>
+                                        </f:facet>
+                                        <h:outputText value="#{appointment.date}"/>
                                     </h:column>
                                     
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Last Name"/>
+                                            <h:outputText value="Status"/>
                                         </f:facet>
-                                        <h:outputText value="#{doctor.lastName}"/>
+                                        <h:outputText value="#{appointment.status}"/>
                                     </h:column>
                                     
                                     <h:column>
@@ -47,7 +64,10 @@
                                             <h:outputText value="Edit"/>
                                         </f:facet>
                                         
-                                        <a class="btn btn-small" href="doctor.xhtml?id=#{doctor.id}">Edit</a>
+                                        <h:commandButton class="btn btn-small" value="View" action="#{appointmentBean.editAppointment(appointment)}"/>
+                                        
+                                        
+                                        
                                     </h:column>
                                     
                                     

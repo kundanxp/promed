@@ -5,6 +5,8 @@
  */
 package com.ea.promed.beans;
 
+import com.ea.promed.entities.Appointment;
+import com.ea.promed.entities.Doctor;
 import com.ea.promed.entities.Nurse;
 import com.ea.promed.entities.Nurse;
 import com.ea.promed.entities.User;
@@ -122,6 +124,16 @@ public class NurseBean extends AbstractBean {
     public List<Nurse> listAllNurses()
     {
         return nurseFacade.listAllNurses();
+    }
+    
+    
+    
+    public List<Appointment> listNurseAppointments()
+    {
+        Nurse cNurse = (Nurse) sessionMap.get("cNurse");
+        
+        return nurseFacade.listNurseAppointments(cNurse);
+        
     }
     
     

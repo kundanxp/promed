@@ -5,6 +5,7 @@
  */
 package com.ea.promed.facades;
 
+import com.ea.promed.entities.Appointment;
 import com.ea.promed.entities.Client;
 import com.ea.promed.entities.Doctor;
 import com.ea.promed.entities.Patient;
@@ -36,7 +37,7 @@ public class ClientFacade extends AbstractFacade<Client> {
     
     public List<Client> listAllClients()
     {
-        return getEntityManager().createQuery("SELECT c FROM Client c").getResultList();
+        return getEntityManager().createQuery("SELECT c FROM Client c ORDER BY c.id DESC").getResultList();
     }
     
     public Client getClientByUser(User user)
@@ -48,6 +49,11 @@ public class ClientFacade extends AbstractFacade<Client> {
     public List<Patient> getMyPatients(Client client)
     {
         return getEntityManager().createQuery("SELECT p FROM Patient p WHERE p.client = ?1 ").setParameter(1, client).getResultList();
+    }
+    
+    public List<Appointment> listAppointments(Client client)
+    {
+        return getEntityManager().createQuery("SELECT a FROM Appointment a INNER JOIN a.patient p WHERE p.client.id = ?1 ORDER BY a.id DESC").setParameter(1, client.getId()).getResultList();
     }
     
 }

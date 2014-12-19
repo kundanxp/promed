@@ -5,6 +5,7 @@
  */
 package com.ea.promed.beans;
 
+import com.ea.promed.entities.Appointment;
 import com.ea.promed.entities.Client;
 import com.ea.promed.entities.Client;
 import com.ea.promed.entities.Patient;
@@ -159,5 +160,12 @@ public class ClientBean extends AbstractBean {
     {
         return clientFacade.listAllClients();
     }
+    
+    public List<Appointment> listAppointments()
+    {
+        Client cClient = (Client) sessionMap.get("cClient");
+        return clientFacade.listAppointments(cClient);
+    }
+    
     
 }

@@ -5,20 +5,18 @@
  */
 package com.ea.promed.facades;
 
-import com.ea.promed.entities.Patient;
+import com.ea.promed.entities.Appointment;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 
 /**
  *
  * @author kunda_000
  */
 @Stateless
-public class PatientFacade extends AbstractFacade<Patient> {
-    
+public class AppointmentFacade extends AbstractFacade<Appointment> {
     @PersistenceContext(unitName = "promedPU")
     private EntityManager em;
 
@@ -27,13 +25,14 @@ public class PatientFacade extends AbstractFacade<Patient> {
         return em;
     }
 
-    public PatientFacade() {
-        super(Patient.class);
+    public AppointmentFacade() {
+        super(Appointment.class);
     }
     
-    public List<Patient> listAllPatients()
+    
+    public List<Appointment> listAllAppointments()
     {
-        return getEntityManager().createQuery("SELECT p FROM Patient p ORDER BY p.id DESC").getResultList();
+        return getEntityManager().createQuery("SELECT a FROM Appointment a ORDER BY a.id DESC").getResultList();
     }
     
 }

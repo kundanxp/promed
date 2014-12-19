@@ -6,12 +6,14 @@
 package com.ea.promed.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 /**
  *
@@ -40,7 +42,8 @@ public class Doctor implements Serializable {
     @OneToOne
     private Department department;
     
-    
+    @Transient
+    private String fullName;
     
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
@@ -133,6 +136,38 @@ public class Doctor implements Serializable {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public String getFullName() {
+        return firstName+" "+lastName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    
+    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Doctor other = (Doctor) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
     
     

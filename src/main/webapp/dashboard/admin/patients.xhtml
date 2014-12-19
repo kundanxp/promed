@@ -16,9 +16,9 @@
                     <div class="row">
                         <div class="span12">
                             
-                            <a class="btn btn-primary pull-right" href="doctor.xhtml">New Doctor</a>
+                            <a class="btn btn-primary pull-right" href="patient.xhtml">New Patient</a>
                             
-                            <h2>Doctors</h2>
+                            <h2>Patients</h2>
                             
                             <c:if test="#{message != null}">
                                 <p class="alert alert-success">#{message}</p>
@@ -26,20 +26,20 @@
 
                             <h:form>
                                 
-                                <h:dataTable class="table-bordered table table-striped" value="#{doctorBean.listAllDoctors()}" var="doctor">
+                                <h:dataTable class="table-bordered table table-striped" value="#{patientBean.listAllPatients()}" var="patient">
                                 
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="First Name"/>
                                         </f:facet>
-                                        <h:outputText value="#{doctor.firstName}"/>
+                                        <h:outputText value="#{patient.firstName}"/>
                                     </h:column>
                                     
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Last Name"/>
                                         </f:facet>
-                                        <h:outputText value="#{doctor.lastName}"/>
+                                        <h:outputText value="#{patient.lastName}"/>
                                     </h:column>
                                     
                                     <h:column>
@@ -47,7 +47,8 @@
                                             <h:outputText value="Edit"/>
                                         </f:facet>
                                         
-                                        <a class="btn btn-small" href="doctor.xhtml?id=#{doctor.id}">Edit</a>
+                                        <a class="btn btn-small" href="patient.xhtml?id=#{patient.id}">Edit</a>
+                                        
                                     </h:column>
                                     
                                     

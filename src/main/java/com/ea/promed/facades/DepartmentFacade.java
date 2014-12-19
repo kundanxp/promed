@@ -31,7 +31,7 @@ public class DepartmentFacade extends AbstractFacade<Department> {
     
     public List<Department> allDepartments()
     {
-        return findAll();
+        return getEntityManager().createQuery("SELECT d FROM Department d ORDER BY d.id DESC").getResultList();
     }
     
     

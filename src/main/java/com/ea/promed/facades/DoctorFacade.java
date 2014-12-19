@@ -5,6 +5,7 @@
  */
 package com.ea.promed.facades;
 
+import com.ea.promed.entities.Appointment;
 import com.ea.promed.entities.Doctor;
 import com.ea.promed.entities.User;
 import java.util.List;
@@ -34,7 +35,7 @@ public class DoctorFacade extends AbstractFacade<Doctor> {
     
     public List<Doctor> listAllDoctors()
     {
-        return getEntityManager().createQuery("SELECT d FROM Doctor d").getResultList();
+        return getEntityManager().createQuery("SELECT d FROM Doctor d ORDER BY d.id DESC").getResultList();
     }
     
     
@@ -59,5 +60,15 @@ public class DoctorFacade extends AbstractFacade<Doctor> {
         }
         return false;
     }
+    
+    
+    public List<Appointment> listDoctorAppointments(Doctor doctor)
+    {
+        return getEntityManager().createQuery("SELECT a FROM Appointment a INNER JOIN a.patient p WHERE a.doctor.id = ?1 AND a.status > 1 ORDER BY a.id DESC").setParameter(1, doctor.getId()).getResultList();
+    }
+    
+    
+    
+    
     
 }

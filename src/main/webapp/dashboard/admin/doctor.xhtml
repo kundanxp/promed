@@ -31,13 +31,15 @@
                                 <h:messages class="errors"/>
                                 
                                 <c:if test="#{param['id'] == null}">
-                                
+                                    
+                                <p>
+                                <h:outputLabel value="Department:"/>
                                     <h:selectOneMenu value="#{doctorBean.doctor.department}">
-                                        <f:selectItems value="#{departmentBean.listAllDepartments()}" var="department" itemValue="#{department}" itemLabel="#{department.departmentName} #{department.id}"/>
+                                        <f:selectItems value="#{departmentBean.listAllDepartments()}" var="department" itemValue="#{department}" itemLabel="#{department.departmentName}"/>
                                     <f:converter converterId="departmentConverter"/>
                                 </h:selectOneMenu>
                                     
-                                    
+                                </p>
                                 
                                 
                                 <p>
@@ -52,6 +54,7 @@
                                     <h:outputLabel value="Username:"/>
                                     <h:inputText id="username" required="true" validatorMessage="User Name Not Valid" class="input-xxlarge" label="User Name:" rendered="true" value="#{doctorBean.doctor.user.username}">
                                         <f:validateLength minimum="4" maximum="10" />
+                                        <f:validator validatorId="userValidator"/>
                                     </h:inputText>
                                     <h:message class="error" for="username"/>
                                 </p>

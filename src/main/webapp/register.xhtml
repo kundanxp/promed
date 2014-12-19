@@ -62,8 +62,9 @@
                                 <h3>Login Credentials:</h3>
                                 <p>
                                     <h:outputLabel value="User Name:"/>
-                                    <h:inputText id="username" required="true" validatorMessage="User Name Not Valid" class="input-xxlarge" label="User Name:" rendered="true" value="#{clientBean.client.user.username}">
+                                    <h:inputText id="username" required="true" class="input-xxlarge" label="User Name:" rendered="true" value="#{clientBean.client.user.username}">
                                         <f:validateLength minimum="4" maximum="10" />
+                                        <f:validator validatorId="userValidator"/>
                                     </h:inputText>
                                     <h:message class="error" for="username"/>
                                 </p>

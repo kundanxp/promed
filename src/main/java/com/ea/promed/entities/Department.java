@@ -31,7 +31,7 @@ public class Department implements Serializable {
     
     private String departmentName;
     
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "department")
     private List<Doctor> doctors = new ArrayList<>();
 
     public Long getId() {

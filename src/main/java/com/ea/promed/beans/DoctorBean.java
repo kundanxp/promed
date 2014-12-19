@@ -5,11 +5,13 @@
  */
 package com.ea.promed.beans;
 
+import com.ea.promed.entities.Appointment;
 import com.ea.promed.entities.Client;
 import com.ea.promed.entities.Department;
 import com.ea.promed.entities.Doctor;
 import com.ea.promed.entities.Patient;
 import com.ea.promed.entities.User;
+import com.ea.promed.facades.AppointmentFacade;
 import com.ea.promed.facades.DoctorFacade;
 import com.ea.promed.facades.UserFacade;
 import com.ea.promed.util.Email;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -47,22 +50,17 @@ public class DoctorBean extends AbstractBean {
     @EJB
     private Email emailBean;
     
+    @EJB
+    AppointmentFacade appointmentFacade;
+    
     private Doctor doctor;
-    private int selectedValue;
-    private Map<Integer,String> depTest=new HashMap<>();
     
     
     public DoctorBean() {
-        depTest.put(1,"Nepal");
-        depTest.put(2,"India");
-        depTest.put(3,"China");
-        System.out.println("Size is:: "+depTest);
-    }
-    
-    public void testEdit(Doctor d){
-        System.out.println("Current selected d id "+d.getId());
         
     }
+    
+    
 
     public Doctor getDoctor() {
         if(doctor == null)
@@ -79,10 +77,7 @@ public class DoctorBean extends AbstractBean {
     }
 
     
-    public String testItem(){
-        System.out.println("Selected id is "+selectedValue);
-        return "";
-    }
+    
     
     public String createDoctor() throws MessagingException, UnsupportedEncodingException
     {
@@ -152,22 +147,18 @@ public class DoctorBean extends AbstractBean {
         return doctors;
     }
     
-
-    public int getSelectedValue() {
-        return selectedValue;
+    
+    
+    public List<Appointment> listDoctorAppointments()
+    {
+        Doctor cDoctor = (Doctor) sessionMap.get("cDoctor");
+        
+        return doctorFacade.listDoctorAppointments(cDoctor);
+        
     }
-
-    public void setSelectedValue(int selectedValue) {
-        this.selectedValue = selectedValue;
-    }
-
-    public Map<Integer, String> getDepTest() {
-        return depTest;
-    }
-
-    public void setDepTest(Map<Integer, String> depTest) {
-        this.depTest = depTest;
-    }
+    
+    
+    
     
     
     

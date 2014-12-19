@@ -5,59 +5,66 @@
       xmlns:f="http://java.sun.com/jsf/core"  
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">  
-    
-    
+
+
     <ui:composition template="/templates/default/main.xhtml">
         <ui:define name="content">            
             <c:if test="#{param['id'] != null}">
                 <f:event type="preRenderView" listener="#{nurseBean.editNurse(param['id'])}" />
             </c:if>
-     
-           
-           <div id="content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="span8">
-   
-                                <h2>Nurse</h2>
-                                
-                                <c:if test="#{message != null}">
-                                    <p class="alert alert-success">#{message}</p>
-                                </c:if>
-                                
-                                
-                                <h:form>
-                                
+
+
+            <div id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="span8">
+
+                            <h2>Nurse</h2>
+
+                            <c:if test="#{message != null}">
+                                <p class="alert alert-success">#{message}</p>
+                            </c:if>
+
+
+                            <h:form>
+
                                 <h:messages class="errors"/>
-                                
+
+
+                                <p>
+                                    <h:outputLabel value="Department:"/>
+                                    <h:selectOneMenu value="#{nurseBean.nurse.department}">
+                                        <f:selectItems value="#{departmentBean.listAllDepartments()}" var="department" itemValue="#{department}" itemLabel="#{department.departmentName}"/>
+                                        <f:converter converterId="departmentConverter"/>
+                                    </h:selectOneMenu>
+                                </p>
+
                                 <c:if test="#{param['id'] == null}">
-                                
-                                
-                                
-                                
-                                <p>
-                                    <h:outputLabel value="Email:"/>
-                                    <h:inputText id="email" required="true" validatorMessage="Invalid email address." label="Email" class="input-xxlarge" rendered="true" value="#{nurseBean.nurse.user.email}">
-                                        <f:validateRegex pattern="^([\w\-\.]+)@((\[([0-9]{1,3}\.){3}[0-9]{1,3}\])|(([\w\-]+\.)+)([a-zA-Z]{2,4}))$"/>
-                                    </h:inputText> 
-                                    <h:message class="error" for="email"/>
-                                </p>
-                                
-                                <p>
-                                    <h:outputLabel value="Username:"/>
-                                    <h:inputText id="username" required="true" validatorMessage="User Name Not Valid" class="input-xxlarge" label="User Name:" rendered="true" value="#{nurseBean.nurse.user.username}">
-                                        <f:validateLength minimum="4" maximum="10" />
-                                    </h:inputText>
-                                    <h:message class="error" for="username"/>
-                                </p>
-                                
-                                <hr/>
-                                
+
+                                    <p>
+                                        <h:outputLabel value="Email:"/>
+                                        <h:inputText id="email" required="true" validatorMessage="Invalid email address." label="Email" class="input-xxlarge" rendered="true" value="#{nurseBean.nurse.user.email}">
+                                            <f:validateRegex pattern="^([\w\-\.]+)@((\[([0-9]{1,3}\.){3}[0-9]{1,3}\])|(([\w\-]+\.)+)([a-zA-Z]{2,4}))$"/>
+                                        </h:inputText> 
+                                        <h:message class="error" for="email"/>
+                                    </p>
+
+                                    <p>
+                                        <h:outputLabel value="Username:"/>
+                                        <h:inputText id="username" required="true" validatorMessage="User Name Not Valid" class="input-xxlarge" label="User Name:" rendered="true" value="#{nurseBean.nurse.user.username}">
+                                            <f:validateLength minimum="4" maximum="10" />
+                                            <f:validator validatorId="userValidator"/>
+                                        </h:inputText>
+                                        <h:message class="error" for="username"/>
+                                    </p>
+
+                                    <hr/>
+
                                 </c:if>
-                                
+
                                 <h3>Nurse Info</h3>
                                 <p>
-                                    
+
                                     <h:outputLabel value="First Name:"/>
                                     <h:inputText class="input-xxlarge" label="First Name" id="firstName" required="true" rendered="true" value="#{nurseBean.nurse.firstName}"/><br/>
                                     <h:message class="error" for="firstName"/>
@@ -100,39 +107,39 @@
                                     <h:inputText class="input-xxlarge" label="Zip" id="zip" value="#{nurseBean.nurse.zipCode}"/>
                                     <h:message class="error" for="zip"/>
                                 </p>
-                                
-                                
+
+
                                 <h:inputHidden value="#{nurseBean.nurse.id}"/>
-                                
-                                
+
+
                                 <p>
                                     <h:commandButton class="btn btn-primary" action="#{nurseBean.createNurse()}" value="Submit"/>
                                 </p>
                             </h:form>  
-                                
-                                
-                                
-                            </div>
-                            <div class="span4">
-
-                                
 
 
 
-                            </div>	
+                        </div>
+                        <div class="span4">
+
+
+
+
+
                         </div>	
-                        
                     </div>	
-                </div>
-            
-            
-            
-            
-            
-            
-            
-            
+
+                </div>	
+            </div>
+
+
+
+
+
+
+
+
         </ui:define>
     </ui:composition>        
- 
+
 </html>  

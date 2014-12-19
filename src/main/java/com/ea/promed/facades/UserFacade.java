@@ -34,8 +34,12 @@ public class UserFacade extends AbstractFacade<User>
     
     public User getUserByUserName(String username)
     {
-        return em.createQuery("SELECT u FROM User u WHERE u.username = ?1",User.class).setParameter(1, username).getSingleResult();
+        try{
+        return (User) em.createQuery("SELECT u FROM User u WHERE u.username = ?1").setParameter(1, username).getSingleResult();
 //        return em.find(User.class, 1L);
+        }catch(Exception e){
+            return null;
+        }
     }
     
     

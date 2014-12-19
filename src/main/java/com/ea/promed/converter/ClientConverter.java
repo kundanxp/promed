@@ -5,9 +5,8 @@
  */
 package com.ea.promed.converter;
 
-import com.ea.promed.entities.Doctor;
-import com.ea.promed.entities.Patient;
-import com.ea.promed.facades.DoctorFacade;
+import com.ea.promed.entities.Client;
+import com.ea.promed.facades.ClientFacade;
 import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -18,22 +17,21 @@ import javax.faces.convert.FacesConverter;
  *
  * @author kunda_000
  */
-@FacesConverter(value = "doctorConverter")
-public class DoctorConverter implements Converter {
+@FacesConverter(forClass = Client.class, value = "clientConverter")
+public class ClientConverter implements Converter {
 
     @EJB
-    DoctorFacade doctorFacade;
-    
+    ClientFacade clientFacade;
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        Long id = Long.parseLong(value);
-        return doctorFacade.find(id);
+       Long id = Long.parseLong(value);
+       return clientFacade.find(id);
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        return String.valueOf(((Doctor) value).getId());
+        return String.valueOf(((Client) value).getId());
     }
     
 }

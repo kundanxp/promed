@@ -509,3 +509,7 @@ span.error {
     display: block;
     text-align: center;
 }
+
+#content .container .span8 {
+    min-height: 300px;
+}
